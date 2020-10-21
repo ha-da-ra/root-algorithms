@@ -10,8 +10,8 @@
 
 class RegulaFalsi : public RootDeterminationAlgorithm  {
 public:
-    RegulaFalsi(bool zeroInIntervallRequired = true)
-            : RootDeterminationAlgorithm( zeroInIntervallRequired)  {algName_ = "RegulaFalsi";};
+    RegulaFalsi()
+            : RootDeterminationAlgorithm(true)  {algName_ = "RegulaFalsi";};
     void RunAlgorithm(TestableExample* example) override;
 private:
 

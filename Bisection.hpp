@@ -10,8 +10,8 @@
 
 class Bisection : public RootDeterminationAlgorithm {
 public:
-    Bisection( bool zeroInIntervallRequired = true)
-    : RootDeterminationAlgorithm( zeroInIntervallRequired)  {algName_ = "Bisection";};
+    Bisection( )
+    : RootDeterminationAlgorithm( true)  {algName_ = "Bisection";};
     void RunAlgorithm(TestableExample* example) override;
 private:
 
