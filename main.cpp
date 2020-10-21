@@ -4,6 +4,7 @@
 #include "Bisection.hpp"
 #include "RegulaFalsi.hpp"
 #include "AlgorithmTester.hpp"
+#include "SecantMethode.hpp"
 
 double exampleSecondOrder (double x){
     return x*x - 4*x + 3;
@@ -19,8 +20,9 @@ int main() {
     std::cout << "=========" << std::endl;
 
     AlgorithmTester Tester;
-    Tester.AddAlgorithm(new Bisection());
-    Tester.AddAlgorithm(new RegulaFalsi());
+    //Tester.AddAlgorithm(new Bisection());
+    //Tester.AddAlgorithm(new RegulaFalsi());
+    Tester.AddAlgorithm(new SecantMethode());
     double a1 = 2.0; double b1 = 6; double epsilon = 0.01;
     double a2 = 0; double b2 = 12;
     Tester.AddExample(new TestableExample(&exampleFourthOrder, a1,b1, epsilon ));
