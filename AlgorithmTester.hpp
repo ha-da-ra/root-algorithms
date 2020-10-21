@@ -22,6 +22,8 @@ private:
     std::vector<TestableExample*> examples_;
 
     bool ZeroWasFound(TestableExample *pExample);
+
+    static bool ReachedLimit(TestableExample *pExample);
 };
 
 
