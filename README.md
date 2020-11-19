@@ -1,3 +1,0 @@
-# Root Algorithms
-
-WIP
