@@ -26,16 +26,22 @@ AlgorithmResult*  executeInverseSinusApproach(double (&f )(double), double (&fDa
 int main() {
     double (&f )(double) = exampleFunction;
     double (&fDash )(double) = exampleFunctionDerivative;
-    double inital_val1 = 0;
-    double inital_val2 = 14;
+    double inital_val1 = -10;
+    double inital_val2 = 10;
+    double epsilon = 0.0001;
     std::vector<AlgorithmResult*> results;
     try {
-        results.push_back(executeBisection(f, 0.0001, inital_val1, inital_val2));
-        results.push_back(executeRegulaFalsi(f, 0.0001, inital_val1, inital_val2));
-        results.push_back(executeNewton(f,fDash, 0.0001, inital_val2));
-        results.push_back(executeInverseSinusApproach(f,fDash, 0.0001, inital_val2));
-        results.push_back(executeSecantMethod(f, 0.0001,inital_val1, inital_val2));
-        results.push_back(executeExponentialApproach(f, 0.0001,inital_val1, inital_val2));
+        results.push_back(executeBisection(f, epsilon, inital_val1, inital_val2));
+
+        results.push_back(executeRegulaFalsi(f, epsilon, inital_val1, inital_val2));
+
+        results.push_back(executeNewton(f,fDash, epsilon, inital_val2));
+
+        results.push_back(executeInverseSinusApproach(f,fDash, epsilon, inital_val2));
+
+        results.push_back(executeSecantMethod(f, epsilon,inital_val1, inital_val2));
+
+        results.push_back(executeExponentialApproach(f, epsilon,inital_val1, inital_val2));
 
         for(auto result : results){
             std::cout << *result << std::endl;
@@ -47,6 +53,7 @@ int main() {
     for (auto result : results){
         delete result;
     }
+    results.clear();
     return 0;
 }
 
@@ -61,7 +68,7 @@ AlgorithmResult* executeBisection(double (&f)(double), double epsilon, double x,
     double fa = f(a);
     unsigned int i = 1;
     for (; i < maxIterations; i++){
-        if (fa == 0 || X - x < epsilon){
+        if (std::abs(fa) < epsilon || X - x < epsilon){
             break;
         }
         if (fa * fx < 0){
@@ -101,7 +108,7 @@ double calculateNextForSecant(double& x_i, double& x_last, double& fx_i, double&
 AlgorithmResult*  executeSecantMethod(double (&f)(double) , double epsilon, double x_last, double x_i) {
     double fx_last = f(x_last);
     double fx_i = f(x_i);
-    if ( fx_last * fx_i >= 0 ){
+    if ( fx_last * fx_i >= 0 ){ // optional
         throw std::invalid_argument( "[x0, x1] has to contain the root" );
     }
     unsigned int i = 1;
@@ -128,11 +135,11 @@ AlgorithmResult*  executeRegulaFalsi(double (&f)(double) , double epsilon, doubl
         throw std::invalid_argument( "x and X were not chosen properly" );
     }
 
-    double a = x - (x - X)/ (fx - fX) * fx;
+    double a = calculateNextForSecant(x,X,fx,fX);
     double fa = f(a);
     unsigned int i = 1;
     for (; i < maxIterations; i++){
-        if (abs(fa) < epsilon || (X - x) < epsilon){
+        if (std::abs(fa) < epsilon || (X - x) < epsilon){
             break;
         }
         if (fa * fx < 0){
