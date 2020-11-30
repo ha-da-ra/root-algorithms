@@ -9,15 +9,14 @@
 
 class AlgorithmResult {
 public:
-    AlgorithmResult(std::string algName, double result, unsigned int iterations, unsigned int avgTimePerIteration)
-    : name_{algName}, rootResult_{result}, iterations_{iterations}, avgTimePerIteration_{avgTimePerIteration}{};
+    AlgorithmResult(std::string algName, double result, unsigned int iterations)
+    : name_{algName}, rootResult_{result}, iterations_{iterations}{};
     void to_stream(std::ostream& os) const;
     double getResult() const;
 private:
     std::string name_;
     double rootResult_;
     unsigned int iterations_;
-    unsigned int avgTimePerIteration_;
 };
 
 

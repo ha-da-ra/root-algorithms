@@ -60,7 +60,7 @@ int main() {
         results.push_back(executeHybridApproach(f,fDash, epsilon,inital_val1, inital_val2));
 
         for(auto result : results){
-            std::cout << *result << ",";
+            std::cout << *result << std::endl;
         }
         
     } catch (std::invalid_argument& err){
@@ -96,7 +96,7 @@ AlgorithmResult* executeBisection(double (&f)(double), double epsilon, double x,
         fa = f(a);
     }
 
-    return new AlgorithmResult("Bisektion", a, i, 0);
+    return new AlgorithmResult("Bisektion", a, i);
 }
 
 AlgorithmResult*  executeNewton(double (&f)(double) , double (&fDash)(double) , double epsilon, double x) {
@@ -113,7 +113,7 @@ AlgorithmResult*  executeNewton(double (&f)(double) , double (&fDash)(double) , 
         x = x - (fx / fDash(x));
         fx  = f(x);
     }
-    return new AlgorithmResult("Newton", x, i, 0);
+    return new AlgorithmResult("Newton", x, i);
 }
 
 double calculateNextForSecant(double& x_i, double& x_last, double& fx_i, double& fx_last){
@@ -140,7 +140,7 @@ AlgorithmResult*  executeSecantMethod(double (&f)(double) , double epsilon, doub
         fx_last = f(x_last);
         fx_i = f(x_i);
     }
-    return new AlgorithmResult("Sekantenverfahren", x_i, i, 0);
+    return new AlgorithmResult("Sekantenverfahren", x_i, i);
 }
 
 
@@ -169,7 +169,7 @@ AlgorithmResult*  executeRegulaFalsi(double (&f)(double) , double epsilon, doubl
         fX = f(X);
     }
 
-    return new AlgorithmResult("Regula Falsi", a, i, 0);
+    return new AlgorithmResult("Regula Falsi", a, i);
 }
 
 AlgorithmResult *executeExponentialApproach(double (&f)(double) , double epsilon, double x_last, double x_i) {
@@ -192,7 +192,7 @@ AlgorithmResult *executeExponentialApproach(double (&f)(double) , double epsilon
         fx_last = f(x_last);
         fx_i = f(x_i);
     }
-    return new AlgorithmResult("Exponentialreihe", x_i, i, 0);
+    return new AlgorithmResult("Exponentialreihe", x_i, i);
 }
 
 AlgorithmResult *executeInverseSinusApproach(double (&f)(double) , double (&fDash)(double) , double epsilon, double x) {
@@ -209,21 +209,21 @@ AlgorithmResult *executeInverseSinusApproach(double (&f)(double) , double (&fDas
         x = x * ( 1 + asin(-fx / (x * fDash(x))));
         fx  = f(x);
     }
-    return new AlgorithmResult("Inverser Sinus", x, i, 0);
+    return new AlgorithmResult("Inverser Sinus", x, i);
 }
 
 AlgorithmResult *executeDekker(double (&f)(double) , double epsilon, double x_last, double x_i) {
     nc::roots::Dekker d = nc::roots::Dekker(epsilon,maxIterations, f);
     double result = d.solve(x_last, x_i);
     int i = d.numIterations();
-    return new AlgorithmResult("Dekker", result, i, 0);
+    return new AlgorithmResult("Dekker", result, i);
 }
 
 AlgorithmResult *executeBrent(double (&f)(double) , double epsilon, double x_last, double x_i) {
     nc::roots::Brent b = nc::roots::Brent(epsilon,maxIterations, f);
     double result = b.solve(x_last, x_i);
     int i = b.numIterations();
-    return new AlgorithmResult("Brent", result, i, 0);
+    return new AlgorithmResult("Brent", result, i);
 }
 
 AlgorithmResult *executeHybridApproach(double (&f)(double) , double (&fDash)(double) , double epsilon, double x0,  double x1) {
@@ -243,5 +243,5 @@ AlgorithmResult *executeHybridApproach(double (&f)(double) , double (&fDash)(dou
         x = x - (fx / fDash(x));
         fx  = f(x);
     }
-    return new AlgorithmResult("Hybrid", x, i, 0);
+    return new AlgorithmResult("Hybrid", x, i);
 }
