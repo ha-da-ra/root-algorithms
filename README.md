@@ -8,3 +8,6 @@ Following algorithms are implemented:
 - secant method
 - newton method
 - regula falsi
+- brent
+- dekker
+- 3 modern approaches
