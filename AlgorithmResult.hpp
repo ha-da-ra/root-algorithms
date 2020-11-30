@@ -12,6 +12,7 @@ public:
     AlgorithmResult(std::string algName, double result, unsigned int iterations, unsigned int avgTimePerIteration)
     : name_{algName}, rootResult_{result}, iterations_{iterations}, avgTimePerIteration_{avgTimePerIteration}{};
     void to_stream(std::ostream& os) const;
+    double getResult() const;
 private:
     std::string name_;
     double rootResult_;
